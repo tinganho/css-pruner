@@ -3,5 +3,6 @@
 
 require File.dirname(__FILE__) + '/../lib/ruby/cssp'
 
-opts = Cssp.new(ARGV)
+opts = Cssp::Exec.new(ARGV)
 opts.parse!
+
