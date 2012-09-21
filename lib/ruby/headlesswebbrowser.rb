@@ -3,7 +3,7 @@
 require 'optparse'
 require 'pp'
 require 'fileutils'
-require File.dirname(__FILE__) + '/configparser'
+require File.dirname(__FILE__) + '/utils'
 
 
 module Cssp
@@ -20,14 +20,14 @@ module Cssp
 		# Runs headless web browser
 		def run_server()
 			raise "Undefined app delegate file" if @app_delegate_file.nil?
-			config_parser = Cssp::ConfigParser.new()
-			config_parser.config_file = @config_file
-			config_parser.parse
 
 			# TODO require the phantomJS binary
 			
 		end
 
+		# Builds the app delegate file and config file
+		def build_files
+		end
 
 	end
 end

@@ -94,6 +94,7 @@ module Cssp
       headless_web_browser = Cssp::PhantomJS.new(@options)
       headless_web_browser.app_delegate_file = APP_DELEGATE_FILE
       headless_web_browser.config_file = @options[:config_file_dir] + '/cspp_config.rb'
+      headless_web_browser.build_files
       headless_web_browser.run_server
       outputpp
     end
