@@ -1,3 +1,8 @@
 .DS_Store
 
-tmp/
+# Remove tmp files
+tmp/app/*
+tmp/test/*
+
+# Remove gem file
+*.gem
