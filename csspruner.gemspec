@@ -5,13 +5,10 @@ Gem::Specification.new do |s|
   s.summary     = 'Hola!'
   s.description = 'A simple hello world gem'
   s.authors     = ['Tingan Ho']
-  s.email       = 'nick@quaran.to'
-  s.files       = FileList[
-                    'lib/**/*.rb',
-                    'bin/*',
-                    '[A-Z]*',
-                    'test/**/*'
-                  ].to_a
+  s.email       = 'tingan@clockies.com'
+  s.files       = Dir.glob("lib/**/*")
+  s.files       += Dir.glob('test/**/*')
+  s.files       += Dir.glob('bin/*')
   s.executables << 'cssp'
   s.homepage    =
     'http://rubygems.org/gems/hola'
