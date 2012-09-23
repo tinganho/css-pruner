@@ -44,13 +44,7 @@ module Cssp
       @opts = OptionParser.new(&method(:set_opts))
       @opts.parse(@args)
       @options
-      raise 'CSSP pruner engine file does not exist' if !cssp_pruner_engine_file_exist
       run_headless_web_browser
-    end
-
-    # Checks if app delegate file exists
-    def cssp_pruner_engine_file_exist
-      File.exist?(CSSP_PRUNER_ENGINE_FILE)
     end
 
     # Set options
@@ -64,7 +58,7 @@ module Cssp
 
       # Directory to find config file
       @options[:trace] = false
-      opts.on('--trace', 'Traceback error calls') do
+      opts.on('-t', '--trace', 'Traceback error calls') do
         @options[:trace] = true
       end
 
@@ -76,27 +70,20 @@ module Cssp
       end
 
       # Another typical switch to print the version.
-      opts.on_tail("--version", "Show version") do
+      opts.on_tail('-v', '--version', 'Show version') do
         puts VERSION
         exit 
       end
 
     end # End parse
 
-    # For debugging
-    def outputpp
-      pp @options 
-    end
-
     # Run headless web browser
     def run_headless_web_browser
       require File.dirname(__FILE__) + '/headlesswebbrowser'
-      headless_web_browser = Cssp::PhantomJS.new(@options)
-      headless_web_browser.cssp_engine_file = CSSP_PRUNER_ENGINE_FILE
-      headless_web_browser.config_file = @options[:config_file_dir] + '/cspp_config.js'
+      headless_web_browser = Cssp::PhantomJS.new()
+      headless_web_browser.config_file_path = @options[:config_file_dir] + '/cssp_config.js'
       headless_web_browser.build
-      # headless_web_browser.run_server
-      outputpp
+      headless_web_browser.run_server
     end
 
   end # End of class Cssp

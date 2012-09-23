@@ -9,6 +9,9 @@ Gem::Specification.new do |s|
   s.files       = Dir.glob("lib/**/*")
   s.files       += Dir.glob('test/**/*')
   s.files       += Dir.glob('bin/*')
+  s.files       += Dir.glob('tmp/README.md')
+  s.files       += Dir.glob('tmp/app/README.md')
+  s.files       += Dir.glob('tmp/test/README.md')
   s.executables << 'cssp'
   s.homepage    =
     'http://rubygems.org/gems/hola'

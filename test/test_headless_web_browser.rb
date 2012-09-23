@@ -27,15 +27,15 @@ class TestHeadlessWebBrowser < Test::Unit::TestCase
     assert_raise( RuntimeError ) { phantomjs.validate_build }
   end
 
-  def test_validate_build_without_defined_output_filename
+  def test_validate_build_without_defined_output_file
     phantomjs = Cssp::PhantomJS.new()
-    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/undefined_output_filename_config_test.js'
+    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/undefined_output_file_config_test.js'
     assert_raise( RuntimeError ) { phantomjs.validate_build }
   end
 
-  def test_get_output_filename
+  def test_get_output_file
     phantomjs = Cssp::PhantomJS.new()
-    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/get_output_filename_test.js'
+    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/get_output_file_test.js'
     assert_equal('somefilename', phantomjs.validate_build)
   end
   
@@ -44,8 +44,8 @@ class TestHeadlessWebBrowser < Test::Unit::TestCase
   	assert_raise( RuntimeError ) { Cssp::PhantomJS.new().run_server }
   end
 
-  def test_writing_result_to_file
-  end
+  # def test_writing_result_to_output_file
+  # end
 
 
 

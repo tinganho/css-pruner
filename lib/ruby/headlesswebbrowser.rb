@@ -12,19 +12,21 @@ module Cssp
 
 	class PhantomJS
 
+		ROOT = File.dirname(__FILE__) + '/../../'
+
 		CSSP_PRUNER_ENGINE_FILE_PATH = File.dirname(__FILE__) + '/../js/csspruner.js'
 		VALIDATE_BUILD_FILE_PATH = File.dirname(__FILE__) + '/../js/validate_build.js'
-		GET_OUTPUT_FILENAME_FILE_PATH = File.dirname(__FILE__) + '/../js/get_output_filename.js'
+		GET_OUTPUT_FILE_FILE_PATH = File.dirname(__FILE__) + '/../js/get_output_file.js'
 
 		# Temporary files
 		TMP_ENGINE_FILE_PATH = File.dirname(__FILE__) + '/../../tmp/app/engine.js'
 		TMP_VALIDATE_BUILD_FILE_PATH = File.dirname(__FILE__) + '/../../tmp/app/validate_build.js'
-		TMP_GET_OUTPUT_FILENAME_FILE_PATH= File.dirname(__FILE__) + '/../../tmp/app/get_output_filename.js'
+		TMP_GET_OUTPUT_FILE_FILE_PATH= File.dirname(__FILE__) + '/../../tmp/app/get_output_file.js'
 
 		attr_accessor :cssp_engine_file
 		attr_accessor :config_file_path
 
-		@output_filename
+		@output_file
 
 		def initialize
 		end
@@ -36,7 +38,8 @@ module Cssp
 			raise 'Undefined temp. engine file' unless File.exist?(TMP_ENGINE_FILE_PATH)
 
 			# Run
-			result = `vendor/phantomjs tmp/app/engine.js`
+			command = '#{ROOT}vendor/phantomjs #{ROOT}tmp/app/engine.js'
+			result = `#{command}`
 			return result
 		end
 
@@ -64,19 +67,19 @@ module Cssp
 			validate_build_file.each { |lines| tmp_validate_build_file.puts(lines) }
 			tmp_validate_build_file.close
 
-			result = `vendor/phantomjs tmp/app/validate_build.js`
+			result = `#{ROOT}vendor/phantomjs #{ROOT}tmp/app/validate_build.js`
 			raise result if result.gsub("\n", '') != 'success'
 
 			# Get the output filename
-			tmp_get_output_filename_file = File.new(TMP_GET_OUTPUT_FILENAME_FILE_PATH, 'w')
+			tmp_get_output_file_file = File.new(TMP_GET_OUTPUT_FILE_FILE_PATH, 'w')
 			config_file = File.readlines(@config_file_path)
-			config_file.each { |lines| tmp_get_output_filename_file.puts(lines) }
-			get_output_filename_file = File.readlines(GET_OUTPUT_FILENAME_FILE_PATH)
-			get_output_filename_file.each { |lines| tmp_get_output_filename_file.puts(lines) }
-			tmp_get_output_filename_file.close
-			output_filename = `vendor/phantomjs tmp/app/get_output_filename.js`
-
-			return output_filename.gsub("\n", '')
+			config_file.each { |lines| tmp_get_output_file_file.puts(lines) }
+			get_output_file_file = File.readlines(GET_OUTPUT_FILE_FILE_PATH)
+			get_output_file_file.each { |lines| tmp_get_output_file_file.puts(lines) }
+			tmp_get_output_file_file.close
+			@output_file = `#{ROOT}vendor/phantomjs #{ROOT}tmp/app/get_output_file.js`
+			@output_file = @output_file.gsub("\n", '')
+			return @output_file
 		end
 
 	end
