@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.files       += Dir.glob('tmp/README.md')
   s.files       += Dir.glob('tmp/app/README.md')
   s.files       += Dir.glob('tmp/test/README.md')
+  s.files       += Dir.glob('vendor/phantomjs')
   s.executables << 'cssp'
   s.homepage    =
     'http://rubygems.org/gems/hola'
