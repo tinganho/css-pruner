@@ -18,18 +18,15 @@ module Cssp
 		attr_accessor :cssp_engine_file
 		attr_accessor :config_file_path
 
-		def initialize(options)
-			@options = options
+		def initialize
 		end
 
 		# Runs headless web browser
 		def run_server()
-			raise 'Undefined app delegate file' if @cssp_engine_file.nil?
-
-			# TODO require the phantomJS binary
+			raise 'Undefined temp. engine file' unless File.exist?(TMP_ENGINE_FILE_PATH)
 		end
 
-		# Builds the app delegate file and config file
+		# Builds the temp. engine file
 		def build
 			tmp_engine_file = File.new(TMP_ENGINE_FILE_PATH, 'w')
 			config_file_lines = File.readlines(@config_file_path)

@@ -7,14 +7,16 @@ require 'fileutils'
 
 
 module Cssp
+  
+  # Version number
+  VERSION = '0.0.1'
 
   class Exec 
 
-    # @param args [Array<String>] The command-line arguments
+     # @param args [Array<String>] The command-line arguments
     def initialize(args)
       @args = args
       @options = {}
-      @version = '0.0.1'
     end
 
     # Parses the command-line arguments and runs the executable.
@@ -68,14 +70,14 @@ module Cssp
 
       # This displays the help screen, all programs are
       # assumed to have this option.
-      opts.on_tail( '-h', '--help', 'Display this screen' ) do
+      opts.on_tail( '-h', '--help', 'Display this screen') do
         puts opts
         exit
       end
 
       # Another typical switch to print the version.
       opts.on_tail("--version", "Show version") do
-        puts @version
+        puts VERSION
         exit 
       end
 
