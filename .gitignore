@@ -3,6 +3,8 @@
 # Remove tmp files
 tmp/app/*
 tmp/test/*
+!tmp/app/README.md
+!tmp/test/README.md
 
 # Remove gem file
 *.gem
