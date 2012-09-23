@@ -10,7 +10,7 @@ module Cssp
   class Exec 
 
     
-    APP_DELEGATE_FILE = File.dirname(__FILE__) + '/../js/csspruner.js'
+    CSSP_PRUNER_ENGINE_FILE = File.dirname(__FILE__) + '/../js/csspruner.js'
 
 
     # @param args [Array<String>] The command-line arguments
@@ -45,13 +45,13 @@ module Cssp
       @opts = OptionParser.new(&method(:set_opts))
       @opts.parse(@args)
       @options
-      raise 'App delegate file does not exist' if !app_delegate_file_exist
+      raise 'CSSP pruner engine file does not exist' if !cssp_pruner_engine_file_exist
       run_headless_web_browser
     end
 
     # Checks if app delegate file exists
-    def app_delegate_file_exist
-      File.exist?(APP_DELEGATE_FILE)
+    def cssp_pruner_engine_file_exist
+      File.exist?(CSSP_PRUNER_ENGINE_FILE)
     end
 
     # Set options
@@ -61,6 +61,7 @@ module Cssp
       # Directory to find config file
       @options[:config_file_dir] = '.'
       @options[:config_file_dir] = @args[0] unless @args[0].nil?
+      @options[:config_file] = @options[:config_file_dir] + '/cssp_config.js'
 
       # Directory to find config file
       @options[:trace] = false
@@ -92,10 +93,10 @@ module Cssp
     def run_headless_web_browser
       require File.dirname(__FILE__) + '/headlesswebbrowser'
       headless_web_browser = Cssp::PhantomJS.new(@options)
-      headless_web_browser.app_delegate_file = APP_DELEGATE_FILE
-      headless_web_browser.config_file = @options[:config_file_dir] + '/cspp_config.rb'
-      headless_web_browser.build_files
-      headless_web_browser.run_server
+      headless_web_browser.cssp_engine_file = CSSP_PRUNER_ENGINE_FILE
+      headless_web_browser.config_file = @options[:config_file_dir] + '/cspp_config.js'
+      headless_web_browser.build
+      # headless_web_browser.run_server
       outputpp
     end
 
