@@ -1,4 +1,5 @@
 
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'optparse'
 require 'pp'
@@ -8,10 +9,6 @@ require 'fileutils'
 module Cssp
 
   class Exec 
-
-    
-    CSSP_PRUNER_ENGINE_FILE = File.dirname(__FILE__) + '/../js/csspruner.js'
-
 
     # @param args [Array<String>] The command-line arguments
     def initialize(args)
