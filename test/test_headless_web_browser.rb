@@ -33,11 +33,11 @@ class TestHeadlessWebBrowser < Test::Unit::TestCase
     assert_raise( RuntimeError ) { phantomjs.validate_build }
   end
 
-  def test_get_output_file
-    phantomjs = Cssp::PhantomJS.new()
-    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/get_output_file_test.js'
-    assert_equal('somefilename', phantomjs.validate_build)
-  end
+  # def test_get_output_file
+  #   phantomjs = Cssp::PhantomJS.new()
+  #   phantomjs.config_file_path = File.dirname(__FILE__) + '/files/get_output_file_test.js'
+  #   assert_equal('somefilename', phantomjs.validate_build)
+  # end
   
   def test_run_server_exceptions
   	File.unlink(Cssp::PhantomJS::TMP_ENGINE_FILE_PATH)
