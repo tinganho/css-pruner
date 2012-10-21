@@ -26,9 +26,6 @@ module Cssp
 		# Temporary files
 		attr_accessor :tmp_engine_file_path
 
-		def initialize
-		end
-
 		# Runs headless web browser
 		def prune
 
