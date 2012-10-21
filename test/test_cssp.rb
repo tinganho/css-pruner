@@ -14,7 +14,4 @@ class TestCSSP < Test::Unit::TestCase
 		result = `ruby bin/cssp -v`
 		assert_equal(Cssp::VERSION, result.gsub("\n",''))
 	end
-
-	
-
 end

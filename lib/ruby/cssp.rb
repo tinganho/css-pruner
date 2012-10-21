@@ -83,7 +83,7 @@ module Cssp
       headless_web_browser = Cssp::PhantomJS.new()
       headless_web_browser.config_file_path = @options[:config_file_dir] + '/cssp_config.js'
       headless_web_browser.build
-      headless_web_browser.run_server
+      headless_web_browser.prune
     end
 
   end # End of class Cssp

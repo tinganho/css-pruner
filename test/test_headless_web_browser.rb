@@ -16,7 +16,6 @@ class TestHeadlessWebBrowser < Test::Unit::TestCase
   include TestHelpers
 
   def test_concat_in_build
-  	create_tmp_engine_file(CONFIG_FILE_PATH)
     headless_web_browser = Cssp::PhantomJS.new()
     headless_web_browser.config_file_path = CONFIG_FILE_PATH
     headless_web_browser.build false
@@ -42,12 +41,15 @@ class TestHeadlessWebBrowser < Test::Unit::TestCase
     assert_equal('somefilename', headless_web_browser.validate_build)
   end
 
-  # def test_writing_result_to_output_file
-  #   headless_web_browser = Cssp::PhantomJS.new()
-  #   headless_web_browser.config_file_path = CONFIG_FILE_PATH
-  #   headless_web_browser.build
-  #   headless_web_browser.prune
-  # end
+  def test_writing_result_to_output_file
+    headless_web_browser = Cssp::PhantomJS.new()
+    headless_web_browser.config_file_path = CONFIG_FILE_PATH
+    headless_web_browser.build
+    headless_web_browser.prune
+    output = File.new(headless_web_browser.output_file_path, 'r')
+    assert(output)
+    output.close
+  end
 
 
 

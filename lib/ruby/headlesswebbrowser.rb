@@ -34,6 +34,12 @@ module Cssp
 
 			result = `#{ROOT}vendor/phantomjs #{@tmp_engine_file.path}`
 
+			result = result.gsub("\n", '')
+
+			output_file = File.new(@output_file_path, 'w')
+			output_file.puts(result)
+			output_file.close
+
 			return result
 		end
 
@@ -51,6 +57,7 @@ module Cssp
 
 			# Validate build and set the output_file_path
 			@output_file_path = validate_build if validate
+
 
 		end
 
