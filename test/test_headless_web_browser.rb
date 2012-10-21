@@ -11,40 +11,42 @@ require 'test_helpers'
 
 class TestHeadlessWebBrowser < Test::Unit::TestCase
  	
-  CONFIG_FILE_PATH = File.dirname(__FILE__) + '/../tmp/test/config_file.rb'
+  CONFIG_FILE_PATH = File.dirname(__FILE__) + '/files/cssp_config.js'
 
   include TestHelpers
 
   def test_concat_in_build
   	create_tmp_engine_file(CONFIG_FILE_PATH)
-  	tmp_engine_file = File.readlines(Cssp::PhantomJS::TMP_ENGINE_FILE_PATH)
+    headless_web_browser = Cssp::PhantomJS.new()
+    headless_web_browser.config_file_path = CONFIG_FILE_PATH
+    headless_web_browser.build false
+  	tmp_engine_file = File.readlines(headless_web_browser.tmp_engine_file.path)
   	assert_equal(File.readlines(CONFIG_FILE_PATH).concat(File.readlines(Cssp::PhantomJS::CSSP_PRUNER_ENGINE_FILE_PATH)), tmp_engine_file)
   end
 
   def test_validate_build_without_defined_urls
-    phantomjs = Cssp::PhantomJS.new()
-    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/undefined_urls_config_test.js'
-    assert_raise( RuntimeError ) { phantomjs.validate_build }
+    headless_web_browser = Cssp::PhantomJS.new()
+    headless_web_browser.config_file_path = File.dirname(__FILE__) + '/files/undefined_urls_config_test.js'
+    assert_raise( RuntimeError ) { headless_web_browser.validate_build }
   end
 
   def test_validate_build_without_defined_output_file
-    phantomjs = Cssp::PhantomJS.new()
-    phantomjs.config_file_path = File.dirname(__FILE__) + '/files/undefined_output_file_config_test.js'
-    assert_raise( RuntimeError ) { phantomjs.validate_build }
+    headless_web_browser = Cssp::PhantomJS.new()
+    headless_web_browser.config_file_path = File.dirname(__FILE__) + '/files/undefined_output_file_config_test.js'
+    assert_raise( RuntimeError ) { headless_web_browser.validate_build }
   end
 
-  # def test_get_output_file
-  #   phantomjs = Cssp::PhantomJS.new()
-  #   phantomjs.config_file_path = File.dirname(__FILE__) + '/files/get_output_file_test.js'
-  #   assert_equal('somefilename', phantomjs.validate_build)
-  # end
-  
-  def test_run_server_exceptions
-  	File.unlink(Cssp::PhantomJS::TMP_ENGINE_FILE_PATH)
-  	assert_raise( RuntimeError ) { Cssp::PhantomJS.new().run_server }
+  def test_get_output_file
+    headless_web_browser = Cssp::PhantomJS.new()
+    headless_web_browser.config_file_path = File.dirname(__FILE__) + '/files/get_output_file_test.js'
+    assert_equal('somefilename', headless_web_browser.validate_build)
   end
 
   # def test_writing_result_to_output_file
+  #   headless_web_browser = Cssp::PhantomJS.new()
+  #   headless_web_browser.config_file_path = CONFIG_FILE_PATH
+  #   headless_web_browser.build
+  #   headless_web_browser.prune
   # end
 
 
